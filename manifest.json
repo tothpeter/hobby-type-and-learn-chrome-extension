@@ -15,6 +15,14 @@
   },
   "background": {
     "persistent": false,
-    "scripts": ["background.js"]
-  }
+    "page": "background/index.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      // "css": ["content/styles.css"],
+      "js": ["content/content.js"]
+    }
+  ]
 }
