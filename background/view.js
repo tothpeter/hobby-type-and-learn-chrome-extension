@@ -2,8 +2,9 @@ var newCardPopupView = {
   template: document.getElementById('new-card-popup-template'),
 
   init: function(selectedText) {
-    var resultHTML = this.fragment2str(this.template.content);
-
+    var result = document.importNode(this.template.content, true),
+        resultHTML = this.fragment2str(result);
+    
     chrome.tabs.query({
       active: true,
       currentWindow: true
