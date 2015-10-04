@@ -38,6 +38,13 @@ var Session = function() {
   }
 }();
 
+if (Session.isAuthenticated()) {
+  $('.panel-logged-in').addClass('active');
+}
+else {
+  $('.panel-login').addClass('active');
+}
+
 function login() {
   event.preventDefault();
 
@@ -60,6 +67,8 @@ function login() {
         console.log(Session.isAuthenticated());
         Session.create(response.token, response.user);
         // console.log(response.user);
+        $('.panel-login').removeClass('active');
+        $('.panel-logged-in').addClass('active');
       }
       else {
         statusDisplay.innerHTML = 'Error: ' + xhr.statusText;
@@ -71,12 +80,18 @@ function login() {
   statusDisplay.innerHTML = 'Working...';
 }
 
-window.addEventListener('load', function(evt) {
-  statusDisplay = document.getElementById('status-display');
+// Loading popup
+statusDisplay = document.getElementById('status-display');
 
-  document.getElementById('debug').addEventListener('click', function() {
-    location.reload(true);
-  });
+document.getElementById('debug').addEventListener('click', function() {
+  location.reload(true);
+});
 
-  document.getElementById('login-form').addEventListener('submit', login);
+document.getElementById('login-form').addEventListener('submit', login);
+
+
+$('#btn-log-out').click(function() {
+  Session.invalidate();
+  $('.panel-login').addClass('active');
+  $('.panel-logged-in').removeClass('active');
 });
