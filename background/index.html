@@ -6,22 +6,120 @@
 <body>
   <template id="new-card-popup-template">
     <style>
+      *,
+      *:after,
+      *:before {
+        box-sizing: border-box;
+      }
+
+      #new-card-popup-wrapper {
+        z-index: 2147483647;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        height: 300px;
+        width: 400px;
+        margin-top: -150px;
+        margin-left: -200px;
+        background-color: #fff;
+        padding: 30px;
+
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-size: 12px;
+      }
+
+      #new-card-popup-backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2147483640;
+        opacity: 0.5;
+        background-color: #000;
+      }
+
       label {
-        display: block;
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: bold;
       }
 
       .form-controll {
         margin-bottom: 10px;
       }
+
+      .form-control {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+             -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+            touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+      }
     </style>
-    <div class="form-controll">
-      <label for="input-side-a">Side A:</label>
-      <input type="text" id="input-side-a">
-    </div>
-    <div class="form-controll">
-      <label for="input-side-b">Side B:</label>
-      <input type="text" id="input-side-b">
-    </div>
+
+    <form id="new-card-popup-wrapper">
+      <div class="form-controll">
+        <label for="input-side-a">Side A</label>
+        <input type="text" id="input-side-a" class="form-control">
+      </div>
+      <div class="form-controll">
+        <label for="input-side-b">Side B</label>
+        <input type="text" id="input-side-b" class="form-control">
+      </div>
+      <div class="form-controll">
+        <label for="input-side-b">Knowledge level</label>
+        <select>
+          <option value="1">Bad</option>
+          <option value="2">Poor</option>
+          <option value="3" selected="selected">Regular</option>
+          <option value="4">Quite good</option>
+          <option value="5">Excellent</option>
+        </select>
+      </div>
+      <div class="form-controll">
+        <input type="submit" value="Save" class="btn btn-primary">
+      </div>
+    </form>
+    <div id="new-card-popup-backdrop"></div>
   </template>
   <script src="/vendor/jquery.min.js"></script>
   <script src="view.js"></script>
