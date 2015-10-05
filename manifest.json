@@ -22,7 +22,6 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      // "css": ["content/styles.css"],
       "js": ["content/content.js"]
     }
   ]
