@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message.type === 'renderPopUp') {
-    newCardPopup.init(request.message.selectedText, request.message.html);
+    newCardPopup.init(request.message.html);
   }
 });
 
@@ -8,7 +8,7 @@ var newCardPopup = {
   popup: null,
   root: null,
   
-  init: function(selectedText, html) {
+  init: function(html) {
     if (!this.$popup) {
       this.$popup = document.createElement('div');
       this.$popup.id = "type-and-learn-new-card-popup";
