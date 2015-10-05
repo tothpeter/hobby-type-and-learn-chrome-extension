@@ -3,6 +3,7 @@
   "name": "Type and Learn",
   "description": "With this plugin you can highlight text and save it to your Type and Learn account",
   "version": "0.0.1",
+  "minimum_chrome_version": "25",
   "permissions": [
     "tabs",
     "contextMenus",
