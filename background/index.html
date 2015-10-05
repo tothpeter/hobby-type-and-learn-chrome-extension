@@ -5,9 +5,25 @@
 </head>
 <body>
   <template id="new-card-popup-template">
-    <label for="">Side A:</label>
-    <input type="text" id="">
+    <style>
+      label {
+        display: block;
+      }
+
+      .form-controll {
+        margin-bottom: 10px;
+      }
+    </style>
+    <div class="form-controll">
+      <label for="input-side-a">Side A:</label>
+      <input type="text" id="input-side-a">
+    </div>
+    <div class="form-controll">
+      <label for="input-side-b">Side B:</label>
+      <input type="text" id="input-side-b">
+    </div>
   </template>
+  <script src="/vendor/jquery.min.js"></script>
   <script src="view.js"></script>
   <script src="background.js"></script>
 </body>
