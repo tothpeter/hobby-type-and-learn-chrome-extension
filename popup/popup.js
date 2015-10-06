@@ -1,43 +1,5 @@
 var statusDisplay = null;
 
-var Session = function() {
-
-  this.create = function create(token, user) {
-    localStorage.token = token;
-    localStorage.user = JSON.stringify(user);
-  }
-
-  this.currentUser = function currentUser() {
-    if(localStorage.user === undefined){
-      return null;
-    }
-    else {
-      return JSON.parse(localStorage.user);
-    }
-  }  
-
-  this.isAuthenticated = function isAuthenticated() {
-    return localStorage.token !== undefined;
-  }
-
-  this.authenticate = function() {
-    
-  }
-
-  this.invalidate = function() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  }
-  
-  return {
-    authenticate: authenticate,
-    create: create,
-    isAuthenticated: isAuthenticated,
-    invalidate: invalidate,
-    currentUser: currentUser
-  }
-}();
-
 if (Session.isAuthenticated()) {
   $('.panel-logged-in').addClass('active');
 }
