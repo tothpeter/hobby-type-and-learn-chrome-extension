@@ -1,11 +1,13 @@
 var statusDisplay = null;
 
-if (Session.isAuthenticated()) {
-  $('.panel-logged-in').addClass('active');
-}
-else {
-  $('.panel-login').addClass('active');
-}
+Session.isAuthenticated().then(
+  function() {
+    $('.panel-logged-in').addClass('active');
+  },
+  function() {
+    $('.panel-login').addClass('active');
+  }
+);
 
 function login() {
   event.preventDefault();
