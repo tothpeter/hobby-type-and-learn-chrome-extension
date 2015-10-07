@@ -45,6 +45,7 @@ var newCardPopup = {
         proficiencyLevel: _this.$wrapper.find('#input-proficiency-level').val()
       }
 
+      _this.disableForm();
       Card.create(params);
     });
 
@@ -61,6 +62,25 @@ var newCardPopup = {
         _this.close();
       }
     });
+  },
+
+  enableForm: function(clear) {
+    this.$wrapper.find('#input-side-a').removeAttr('disabled');
+    this.$wrapper.find('#input-side-b').removeAttr('disabled');
+    this.$wrapper.find('#input-proficiency-level').removeAttr('disabled');
+    this.$wrapper.find('#btn-create-card').removeAttr('disabled');
+
+    if (clear === true) {
+      this.$wrapper.find('#input-side-a, #input-side-b').val('').eq(0).focus();
+      this.$wrapper.find('#input-proficiency-level option:first-child')[0].selected = true;
+    }
+  },
+
+  disableForm: function() {
+    this.$wrapper.find('#input-side-a').attr('disabled', true);
+    this.$wrapper.find('#input-side-b').attr('disabled', true);
+    this.$wrapper.find('#input-proficiency-level').attr('disabled', true);
+    this.$wrapper.find('#btn-create-card').attr('disabled', true);
   }
 }
 
@@ -70,6 +90,7 @@ var Adapter = {
 
 var Card = {
   create: function(params) {
+
     chrome.storage.sync.get({
       token: null
     }, function(items) {
@@ -94,7 +115,7 @@ var Card = {
         }
       })
       .always(function() {
-        console.log("complete");
+        newCardPopup.enableForm(true);
       });
     });
   }
