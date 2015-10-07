@@ -5,35 +5,62 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 var newCardPopup = {
-  popup: null,
   root: null,
+  $wrapper: null,
   
   init: function(html) {
-    if (!this.$popup) {
-      this.$popup = document.createElement('div');
-      this.$popup.id = "type-and-learn-new-card-popup";
+    if (!this.$wrapper) {
+      var popup = document.createElement('div');
+      popup.id = "type-and-learn-new-card-popup";
 
-      this.root = this.$popup.createShadowRoot();
+      this.root = popup.createShadowRoot();
       this.root.innerHTML = html;
 
-      document.body.appendChild(this.$popup);
+      document.body.appendChild(popup);
+      this.$wrapper = $(this.root).find('#new-card-popup-wrapper');
 
       this.bindEvents();
+      this.open();
+    }
+    else {
+      this.open();
     }
   },
 
+  open: function() {
+    this.$wrapper.addClass('open');
+  },
+
+  close: function() {
+    this.$wrapper.removeClass('open');
+  },
+
   bindEvents: function() {
-    var $wrapper = $(this.root).find('#new-card-popup-wrapper');
-    
-    $wrapper.submit(function(event) {
+    var _this = this;
+
+    this.$wrapper.submit(function(event) {
       event.preventDefault();
       var params = {
-        sideA: $wrapper.find('#input-side-a').val(),
-        sideB: $wrapper.find('#input-side-b').val(),
-        proficiencyLevel: $wrapper.find('#input-proficiency-level').val()
+        sideA: this.$wrapper.find('#input-side-a').val(),
+        sideB: this.$wrapper.find('#input-side-b').val(),
+        proficiencyLevel: this.$wrapper.find('#input-proficiency-level').val()
       }
 
       Card.create(params);
+    });
+
+    this.$wrapper.on('click', function(event) {
+      if ($(event.target).data('dismiss') === 'modal') {
+        event.preventDefault();
+        _this.close();
+      }
+    });
+
+    this.$wrapper.on('keydown', function(event) {
+      if (event.which == 27) {
+        event.preventDefault();
+        _this.close();
+      }
     });
   }
 }
