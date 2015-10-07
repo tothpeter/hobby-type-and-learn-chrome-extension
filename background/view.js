@@ -1,7 +1,20 @@
+chrome.runtime.onInstalled.addListener(function() {
+  chrome.contextMenus.create({
+    title: 'Add to Type and Learn',
+    contexts: ['selection'],
+    id: 'context-tal-create-card'
+  });
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  newCardPopupView.open(info.selectionText);
+});
+
+
 var newCardPopupView = {
   template: document.getElementById('new-card-popup-template'),
 
-  init: function(selectedText) {
+  open: function(selectedText) {
     var fragment = document.importNode(this.template.content, true);
 
     var tmp = document.createElement('div');
