@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message.type === 'renderPopUp') {
-    newCardPopup.init(request.message.html);
+  if (request.message.type === 'openPopUp') {
+    newCardPopup.init(request.message.templateHTML, request.message.selectedText);
   }
 });
 
@@ -8,26 +8,25 @@ var newCardPopup = {
   root: null,
   $wrapper: null,
   
-  init: function(html) {
+  init: function(templateHTML, selectedText) {
     if (!this.$wrapper) {
       var popup = document.createElement('div');
       popup.id = "type-and-learn-new-card-popup";
 
       this.root = popup.createShadowRoot();
-      this.root.innerHTML = html;
+      this.root.innerHTML = templateHTML;
 
       document.body.appendChild(popup);
       this.$wrapper = $(this.root).find('#new-card-popup-wrapper');
 
       this.bindEvents();
-      this.open();
     }
-    else {
-      this.open();
-    }
+    
+    this.open(selectedText);
   },
 
-  open: function() {
+  open: function(selectedText) {
+    this.$wrapper.find('#input-side-a, #input-side-b').attr('value', selectedText).eq(0).focus();
     this.$wrapper.addClass('open');
   },
 
@@ -41,9 +40,9 @@ var newCardPopup = {
     this.$wrapper.submit(function(event) {
       event.preventDefault();
       var params = {
-        sideA: this.$wrapper.find('#input-side-a').val(),
-        sideB: this.$wrapper.find('#input-side-b').val(),
-        proficiencyLevel: this.$wrapper.find('#input-proficiency-level').val()
+        sideA: _this.$wrapper.find('#input-side-a').val(),
+        sideB: _this.$wrapper.find('#input-side-b').val(),
+        proficiencyLevel: _this.$wrapper.find('#input-proficiency-level').val()
       }
 
       Card.create(params);

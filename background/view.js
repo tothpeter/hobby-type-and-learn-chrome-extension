@@ -16,11 +16,7 @@ var newCardPopupView = {
 
   open: function(selectedText) {
     var fragment = document.importNode(this.template.content, true);
-
-    var tmp = document.createElement('div');
-    tmp.appendChild(fragment);
-
-    $(tmp).find('#input-side-a').attr('value', selectedText);
+    var templateHTML = this.fragment2str(fragment);
     
     chrome.tabs.query({
       active: true,
@@ -28,11 +24,17 @@ var newCardPopupView = {
     }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         message: {
-          type: 'renderPopUp',
+          type: 'openPopUp',
           selectedText: selectedText,
-          html: tmp.innerHTML
+          templateHTML: templateHTML
         }
       });
     });
-  }
+  },
+
+  fragment2str: function (frag) {
+    var tmp = document.createElement('div');
+    tmp.appendChild(frag);
+    return tmp.innerHTML;
+  },
 };
