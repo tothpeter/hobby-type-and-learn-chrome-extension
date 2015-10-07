@@ -69,6 +69,8 @@ var newCardPopup = {
     this.$wrapper.find('#input-side-b').removeAttr('disabled');
     this.$wrapper.find('#input-proficiency-level').removeAttr('disabled');
     this.$wrapper.find('#btn-create-card').removeAttr('disabled');
+    
+    this.$wrapper.find('.loading-message-wrapper').removeClass('active');
 
     if (clear === true) {
       this.$wrapper.find('#input-side-a, #input-side-b').val('').eq(0).focus();
@@ -81,6 +83,7 @@ var newCardPopup = {
     this.$wrapper.find('#input-side-b').attr('disabled', true);
     this.$wrapper.find('#input-proficiency-level').attr('disabled', true);
     this.$wrapper.find('#btn-create-card').attr('disabled', true);
+    this.$wrapper.find('.loading-message-wrapper').addClass('active');
   }
 }
 

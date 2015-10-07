@@ -301,6 +301,54 @@
         border: 0;
         margin-top: -1px;
       }
+
+      /* Spinner */
+      .spinner-default {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-top: 2px solid #00a8ff;
+        border-right: 2px solid #cfdee5;
+        border-bottom: 2px solid #cfdee5;
+        border-left: 2px solid #cfdee5;
+        border-radius: 100%;
+
+        animation: rotate-spinner 1s infinite linear;
+      }
+
+      @keyframes rotate-spinner {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(359deg);
+        }
+      }
+
+      .loading-message-wrapper {
+        margin-top: 8px;
+        float: left;
+        opacity: 0;
+
+        transform: scale(.8);
+        transition: all .2s;
+      }
+
+      .loading-message-wrapper.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .loading-message-wrapper .spinner-default {
+        float: left;
+        margin-right: 6px;
+      }
+
+      .loading-message-wrapper .loading-message {
+        float: left;
+        font-size: 12px;
+        line-height: 15px;
+      }
     </style>
 
     <form id="new-card-popup-wrapper">
@@ -330,6 +378,11 @@
         </div>
       </div>
       <div class="modal-footer">
+        <div class="pull-left loading-message-wrapper">
+          <div class="spinner-default spinner-small"></div>
+          <div class="loading-message">Loading, please wait...</div>
+        </div>
+
         <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal">
         <input type="submit" value="Create" class="btn btn-primary" id="btn-create-card">
       </div>
