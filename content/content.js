@@ -26,7 +26,7 @@ var newCardPopup = {
   },
 
   open: function(selectedText) {
-    this.$wrapper.find('#input-side-a, #input-side-b').attr('value', selectedText).eq(0).focus();
+    this.$wrapper.find('#input-side-a, #input-side-b').val(selectedText).eq(0).focus();
     this.$wrapper.addClass('open');
   },
 
