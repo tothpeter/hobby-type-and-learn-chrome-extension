@@ -82,6 +82,7 @@ var newCardPopup = {
   },
 
   enableForm: function(clear) {
+    this.shouldValidate = false;
     this.$wrapper.find('#input-side-a').removeAttr('disabled');
     this.$wrapper.find('#input-side-b').removeAttr('disabled');
     this.$wrapper.find('#input-proficiency-level').removeAttr('disabled');
