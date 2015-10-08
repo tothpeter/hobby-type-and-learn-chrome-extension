@@ -63,6 +63,7 @@
 
       /* UI Kit */
       .form-group {
+        position: relative;
         margin-bottom: 15px;
       }
 
@@ -349,6 +350,41 @@
         font-size: 12px;
         line-height: 15px;
       }
+
+      /* Errors */
+
+      .input-error-message {
+        position: absolute;
+        padding: 2px 8px;
+        margin-top: 8px;
+        margin-left: 8px;
+        opacity: 0;
+        background-color: #d9534f;
+        z-index: 1;
+        color: #fff;
+
+        transform: scale(.8);
+        transition: all .16s;
+      }
+
+      .input-error-message:before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 8px;
+        display: block;
+        width: 0;
+        height: 0;
+
+        border-style: solid;
+        border-width: 0 6px 6px 6px;
+        border-color: transparent transparent #d9534f transparent;
+      }
+
+      .has-error .input-error-message {
+        transform: scale(1);
+        opacity: 1;
+      }
     </style>
 
     <form id="new-card-popup-wrapper">
@@ -360,10 +396,12 @@
         <div class="form-group">
           <label for="input-side-a">Side A</label>
           <input type="text" id="input-side-a" class="form-control" class="form-controll">
+          <div class="input-error-message">Required field</div>
         </div>
         <div class="form-group">
           <label for="input-side-b">Side B</label>
           <input type="text" id="input-side-b" class="form-control" class="form-controll">
+          <div class="input-error-message">Required field</div>
         </div>
         <div class="form-group">
           <label for="input-side-b">Knowledge level</label>
