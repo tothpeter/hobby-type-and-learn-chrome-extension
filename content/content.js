@@ -7,6 +7,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 var newCardPopup = {
   root: null,
   $wrapper: null,
+  shouldValidate: false,
   
   init: function(templateHTML, selectedText) {
     if (!this.$wrapper) {
@@ -26,6 +27,8 @@ var newCardPopup = {
   },
 
   open: function(selectedText) {
+    this.$wrapper.find('.has-error').removeClass('has-error');
+    this.shouldValidate = false;
     this.$wrapper.find('#input-side-a, #input-side-b').val(selectedText).eq(0).focus();
     this.$wrapper.addClass('open');
   },
@@ -35,12 +38,11 @@ var newCardPopup = {
   },
 
   bindEvents: function() {
-    var _this = this,
-        shouldValidate = false;
+    var _this = this;
 
     this.$wrapper.submit(function(event) {
       event.preventDefault();
-      shouldValidate = true;
+      _this.shouldValidate = true;
       
       if (!_this.validate()) {
         return false;
@@ -72,7 +74,7 @@ var newCardPopup = {
     });
 
     this.$wrapper.on('keyup', function() {
-      if (shouldValidate) {
+      if (_this.shouldValidate) {
         _this.validate();
       }
 
