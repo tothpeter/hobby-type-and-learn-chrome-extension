@@ -155,6 +155,7 @@ var Card = {
         }
       })
       .done(function() {
+        newCardPopup.enableForm(true);
         console.log("success");
       })
       .fail(function(xhr) {
@@ -162,12 +163,15 @@ var Card = {
           var response = JSON.parse(xhr.responseText);
           alert('Validation error');
         }
+        else if (xhr.status === 401) {
+          Session.invalidate();
+          alert('You are not logged in, please log in (use the icon above).');
+        }
         else {
           alert('Something went wrong on our servers, please try later.');
         }
-      })
-      .always(function() {
-        newCardPopup.enableForm(true);
+
+        newCardPopup.enableForm();
       });
     });
   }
