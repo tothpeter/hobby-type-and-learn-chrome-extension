@@ -17,7 +17,7 @@
   },
   "background": {
     "persistent": false,
-    "page": "background/index.html"
+    "page": "background/index_generated.html"
   },
 
   "content_scripts": [

@@ -2,6 +2,7 @@
   "name": "type-and-learn",
   "version": "0.0.1",
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "grunt-processhtml": "^0.3.8"
   }
 }

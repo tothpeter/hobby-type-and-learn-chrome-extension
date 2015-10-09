@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <template id="new-card-popup-template">
+    <!-- build:css inline -->
+      <link rel="stylesheet" href="styles.css">
+    <!-- /build -->
+
+    <form id="new-card-popup-wrapper">
+      <div class="modal-header">
+        <button aria-label="Close" data-dismiss="modal" class="close" type="button">×</button>
+        <h1 class="modal-title">Create new card</h1>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-side-a">Side A</label>
+          <input type="text" id="input-side-a" class="form-control" class="form-controll">
+          <div class="input-error-message">Required field</div>
+        </div>
+        <div class="form-group">
+          <label for="input-side-b">Side B</label>
+          <input type="text" id="input-side-b" class="form-control" class="form-controll">
+          <div class="input-error-message">Required field</div>
+        </div>
+        <div class="form-group">
+          <label for="input-side-b">Knowledge level</label>
+          <select id="input-proficiency-level" class="form-controll">
+            <option value="0">---</option>
+            <option value="1">Bad</option>
+            <option value="2">Poor</option>
+            <option value="3">Regular</option>
+            <option value="4">Quite good</option>
+            <option value="5">Excellent</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="pull-left loading-message-wrapper">
+          <div class="spinner-default spinner-small"></div>
+          <div class="loading-message">Loading, please wait...</div>
+        </div>
+
+        <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal">
+        <input type="submit" value="Create" class="btn btn-primary" id="btn-create-card">
+      </div>
+    </form>
+  </template>
+  <script src="/vendor/jquery.min.js"></script>
+  <script src="view.js"></script>
+</body>
+</html>
