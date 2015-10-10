@@ -8,4 +8,7 @@ A broader description is on its way...
 
 ## Installation for development
 * `npm install`
-* `grunt processhtml`
+* `grunt processhtml:background`
+
+## Autogenerate files while developing
+* `grunt watch`
