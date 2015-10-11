@@ -137,10 +137,6 @@ var newCardPopup = {
   }
 }
 
-var Adapter = {
-  host: 'http://type-and-learn-api.dev'
-}
-
 var Card = {
   create: function(params) {
 
