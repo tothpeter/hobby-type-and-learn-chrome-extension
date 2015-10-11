@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+button:focus,
+input[type=submit]:focus {
+ outline: none;
+}
+
 body {
   min-width: 420px; 
   overflow-x: hidden; 

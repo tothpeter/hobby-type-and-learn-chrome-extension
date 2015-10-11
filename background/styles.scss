@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+input[type=button]:focus,
+input[type=submit]:focus {
+ outline: none;
+}
+
 #new-card-popup-wrapper {
   z-index: 2147483647;
   position: fixed;
