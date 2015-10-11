@@ -1,5 +1,3 @@
-var statusDisplay = null;
-
 Session.isAuthenticated().then(
   function() {
     $('.panel-logged-in').addClass('active');
@@ -9,46 +7,32 @@ Session.isAuthenticated().then(
   }
 );
 
-function login() {
+$('#login-form').submit(function(event) {
   event.preventDefault();
 
-  var postUrl = 'http://type-and-learn-api.dev/sessions/login_chrome_plugin',
-      xhr = new XMLHttpRequest();
-  
-  var email = encodeURIComponent(document.getElementById('email').value),
-      password = encodeURIComponent(document.getElementById('password').value);
+  const credentials = {
+    email: $('#email').val(),
+    password: $('#password').val()
+  }
 
-  var params = 'user[email]=' + email + '&user[password]=' + password;
-
-  xhr.open('POST', postUrl, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      statusDisplay.innerHTML = '';
-      if (xhr.status >= 200 && xhr.status < 300) {
-        var response = JSON.parse(xhr.response);
-        console.log(Session.isAuthenticated());
-        Session.create(response.token, response.user);
-        // console.log(response.user);
-        $('.panel-login').removeClass('active');
-        $('.panel-logged-in').addClass('active');
+  Session.authenticate(credentials).then(
+    function() {
+      $('.panel-login').removeClass('active');
+      $('.panel-logged-in').addClass('active');
+    },
+    function(xhr) {
+      if (xhr.status === 401) {
+        alert('Invalid email or password');
+      }
+      else if (xhr.status >= 500) {
+        alert('Something went wrong on our servers, please try later.');
       }
       else {
-        statusDisplay.innerHTML = 'Error: ' + xhr.statusText;
+        alert('Something went wrong, please try later.');
       }
     }
-  };
-  
-  xhr.send(params);
-  statusDisplay.innerHTML = 'Working...';
-}
-
-// Loading popup
-statusDisplay = document.getElementById('status-display');
-
-document.getElementById('login-form').addEventListener('submit', login);
-
+  );
+});
 
 $('#btn-log-out').click(function() {
   Session.invalidate();
