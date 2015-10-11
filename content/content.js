@@ -55,7 +55,32 @@ var newCardPopup = {
       }
 
       _this.disableForm();
-      Card.create(params);
+      Card.create(params).then(
+        function() {
+          newCardPopup.enableForm(true);
+          console.log("success");
+        },
+        function(result) {
+          if (typeof result === 'string') {
+            alert(result);
+          }
+          else {
+            if (result.status === 422) {
+              var response = JSON.parse(result.responseText);
+              alert('Validation error');
+            }
+            else if (result.status === 401) {
+              Session.invalidate();
+              alert('You are not logged in, please log in (use the icon above).');
+            }
+            else {
+              alert('Something went wrong on our servers, please try later.');
+            }
+          }
+
+          newCardPopup.enableForm();
+        }
+      );
     });
 
     this.$wrapper.on('click', function(event) {
@@ -139,37 +164,32 @@ var newCardPopup = {
 
 var Card = {
   create: function(params) {
-
-    chrome.storage.sync.get({
-      token: null
-    }, function(items) {
-      $.ajax({
-        method: 'post',
-        url: Adapter.host + '/cards',
-        data: {data: {attributes: params}},
-        beforeSend: function(request) {
-          request.setRequestHeader('Authorization', 'Token token="' + items.token + '"');
-        }
-      })
-      .done(function() {
-        newCardPopup.enableForm(true);
-        console.log("success");
-      })
-      .fail(function(xhr) {
-        if (xhr.status === 422) {
-          var response = JSON.parse(xhr.responseText);
-          alert('Validation error');
-        }
-        else if (xhr.status === 401) {
-          Session.invalidate();
-          alert('You are not logged in, please log in (use the icon above).');
-        }
-        else {
-          alert('Something went wrong on our servers, please try later.');
+    var promise = new Promise(function(resolve, reject) {
+      
+      Session.authToken().then(function(authToken) {
+        if (authToken === null) {
+          reject('You are not logged in, please log in (use the icon above).');
+          return false;
         }
 
-        newCardPopup.enableForm();
+        $.ajax({
+          method: 'post',
+          url: Adapter.host + '/cards',
+          data: {data: {attributes: params}},
+          beforeSend: function(request) {
+            request.setRequestHeader('Authorization', 'Token token="' + authToken + '"');
+          }
+        })
+        .done(function() {
+          resolve();
+        })
+        .fail(function(xhr) {
+          reject(xhr);
+        });
       });
+
     });
+
+    return promise;
   }
 }
