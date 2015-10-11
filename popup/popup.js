@@ -47,10 +47,6 @@ function login() {
 // Loading popup
 statusDisplay = document.getElementById('status-display');
 
-document.getElementById('debug').addEventListener('click', function() {
-  location.reload(true);
-});
-
 document.getElementById('login-form').addEventListener('submit', login);
 
 
