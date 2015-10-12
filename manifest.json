@@ -25,6 +25,7 @@
       "matches": ["*://*/*"],
       "js": [
         "vendor/jquery.min.js",
+        "config/config_generated.js",
         "lib/adapter.js",
         "lib/session.js",
         "content/content.js"

@@ -25,6 +25,41 @@ module.exports = function(grunt) {
       },
     },
 
+    watch: {
+      background: {
+        files: ['config/development.js', 'config/production.js'],
+        tasks: ['copy:dev'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
+
+    copy: {
+      dev: {
+        files: [
+          {
+            expand: true,
+            src: 'config/development.js',
+            rename: function() {
+              return 'config/config_generated.js';
+            }
+          },
+        ],
+      },
+      production: {
+        files: [
+          {
+            expand: true,
+            src: 'config/production.js',
+            rename: function() {
+              return 'config/config_generated.js';
+            }
+          },
+        ],
+      }
+    },
+
     sass: {
       background: {
         options: {
@@ -42,4 +77,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 };
