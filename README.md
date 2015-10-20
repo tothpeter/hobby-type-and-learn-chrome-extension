@@ -1,5 +1,7 @@
 # Type and Learn Chrome Plugin
 
+[The main project page](https://github.com/tothpeter/type_and_learn)
+
 A broader description is on its way...
 
 ## Prerequisites
