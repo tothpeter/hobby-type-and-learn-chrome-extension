@@ -23,10 +23,8 @@ module.exports = function(grunt) {
           spawn: false,
         },
       },
-    },
 
-    watch: {
-      background: {
+      config: {
         files: ['config/development.js', 'config/production.js'],
         tasks: ['copy:dev'],
         options: {
